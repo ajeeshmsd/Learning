@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+            Kalc
+    </title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div id="calculator">
+        <div class="display" id="full_display">
+            <div class="display" id="current_operator">+</div>
+            <div class="display" id=right_display">
+                <div class="display" id="current_result">0</div>
+                <div class="display" id="current_input">0</div>
+            </div>
+        </div>
+        <div>
+            <table id="key_grid">
+                <tr>
+                    <td>
+                        <button class="key key_action" data-action="clear">AC</button>
+                    </td>
+                    <td>
+                        <button class="key key_action" data-action="u_minus"><sup>+</sup>/<sub>-</sub></button>
+                    </td>
+                    <td>
+                        <button class="key key_action" data-action="del">del</button>
+                    </td>
+                    <td>
+                        <button class="key key_operator" data-action="plus">+</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="key key_digit">7</button>
+                    </td>
+                    <td>
+                        <button class="key key_digit">8</button>
+                    </td>
+                    <td>
+                        <button class="key key_digit">9</button>
+                    </td>
+                    <td>
+                        <button class="key key_operator" data-action="minus">-</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="key key_digit">4</button>
+                    </td>
+                    <td>
+                        <button class="key key_digit">5</button>
+                    </td>
+                    <td>
+                        <button class="key key_digit">6</button>
+                    </td>
+                    <td>
+                        <button class="key key_operator" data-action="multiply">&times;</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="key key_digit">1</button>
+                    </td>
+                    <td>
+                        <button class="key key_digit">2</button>
+                    </td>
+                    <td>
+                        <button class="key key_digit">3</button>
+                    </td>
+                    <td>
+                        <button class="key key_operator" data-action="divide">&divide;</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button class="key key_digit">0</button>
+                    </td>
+                    <td>
+                        <button class="key key_action" data-action="decimal">.</button>
+                    </td>
+                    <td>
+                        <button class="key key_action" data-action="calculate">=</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
