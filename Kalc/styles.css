@@ -1,6 +1,7 @@
 .calculator {
     alignment: center;
     font-size: 300%;
+    margin: auto;
 }
 
 #current_input,
