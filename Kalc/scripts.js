@@ -8,9 +8,10 @@ let current_input_fractional = ''
 let input_has_fraction = false
 let current_operator = ' '
 let is_input_negative = false
+let current_operator_symbol = ' '
 
 function update_output() {
-    operator_display.textContent = current_operator
+    operator_display.textContent = current_operator_symbol
     output_display.textContent = current_output.toString()
     let input_display_text
     if(input_has_fraction) {
@@ -63,6 +64,7 @@ if(calculator)
         if(key.matches('.key_operator')) {
             calculate()
             current_operator = key.dataset.action
+            current_operator_symbol = key.textContent
             current_input_integral = '0'
             input_has_fraction = false
             is_input_negative = false
@@ -77,6 +79,7 @@ if(calculator)
                 is_input_negative = false
                 current_input_fractional = ""
                 current_operator = ' '
+                current_operator_symbol = ''
                 current_output = 0
             } else if(key.dataset.action === 'u_minus') {
                 is_input_negative = !is_input_negative
@@ -97,6 +100,7 @@ if(calculator)
                 console.log("calculate")
                 calculate()
                 current_operator = ' '
+                current_operator_symbol = ' '
                 current_input_integral = '0'
                 input_has_fraction = false
                 is_input_negative = false
