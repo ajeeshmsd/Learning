@@ -41,10 +41,11 @@ table, th, td {
 
 button {
     height: 100%;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
     width: 100%;
     background: transparent;
+    border: solid wheat;
     color: aliceblue;
 }
 

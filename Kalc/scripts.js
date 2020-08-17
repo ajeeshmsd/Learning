@@ -50,11 +50,10 @@ class Calculator {
 
     #digit_input(digit) {
         this.#input_not_given = false;
-        if(this.#current_input !== '0') {
-            this.#current_input += digit;
-        } else {
-            this.#current_input = digit;
+        if(parseFloat(this.#current_input) === 0) {
+            this.#current_input = this.#current_input.slice(0, -1);
         }
+        this.#current_input += digit;
         console.log("Digit: " + digit);
     }
 
@@ -103,9 +102,6 @@ class Calculator {
                 break;
             }
             case 'u_minus' : {
-                if(this.#input_not_given) {
-                    return;
-                }
                 if(!this.#current_input.includes('-')) {
                     this.#current_input = '-' + this.#current_input;
                 } else {
