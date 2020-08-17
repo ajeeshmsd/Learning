@@ -9,6 +9,7 @@ class Calculator {
     #current_output;
     #current_input
     #current_operator;
+    #input_not_given
 
     constructor() {
         this.#operator_display = document.getElementById('current_operator');
@@ -44,10 +45,11 @@ class Calculator {
             this.#update_display();
         });
 
-        this.#all_clear()
+        this.#all_clear();
     }
 
     #digit_input(digit) {
+        this.#input_not_given = false;
         if(this.#current_input !== '0') {
             this.#current_input += digit;
         } else {
@@ -57,10 +59,14 @@ class Calculator {
     }
 
     #operator_input(operator) {
+        if(this.#input_not_given) {
+            return;
+        }
         this.#current_output =
             Calculator.#calculate(this.#current_operator, this.#current_output, parseFloat(this.#current_input));
         this.#current_operator = operator;
         this.#current_input = '0';
+        this.#input_not_given = true;
         console.log("Operator: " + operator);
     }
 
@@ -69,6 +75,7 @@ class Calculator {
             case 'Backspace' : {
                 this.#current_input = this.#current_input.slice(0, -1);
                 if(!this.#current_input) {
+                    this.#input_not_given = true;
                     this.#current_input = '0';
                 }
                 break;
@@ -80,17 +87,25 @@ class Calculator {
             case '.' : {
                 if(!this.#current_input.includes('.')) {
                     this.#current_input += '.';
+                    this.#input_not_given = false;
                 }
                 break;
             }
             case '=' : {
+                if(this.#input_not_given || this.#current_operator === ' ') {
+                    return;
+                }
                 this.#current_output =
                     Calculator.#calculate(this.#current_operator, this.#current_output, parseFloat(this.#current_input));
                 this.#current_operator = ' ';
                 this.#current_input = '0';
+                this.#input_not_given = true;
                 break;
             }
             case 'u_minus' : {
+                if(this.#input_not_given) {
+                    return;
+                }
                 if(!this.#current_input.includes('-')) {
                     this.#current_input = '-' + this.#current_input;
                 } else {
@@ -105,6 +120,7 @@ class Calculator {
         this.#current_output = 0;
         this.#current_input  = '0'
         this.#current_operator = ' ';
+        this.#input_not_given = true
 
         this.#update_display();
     }
@@ -125,6 +141,12 @@ class Calculator {
         this.#output_display.textContent = this.#current_output.toString();
 
         this.#input_display.textContent = this.#current_input;
+
+        if(this.#input_not_given) {
+            this.#input_display.style.color = 'red';
+        } else {
+            this.#input_display.style.color = 'blue';
+        }
     }
 
     static #calculate(opcode, operand1, operand2) {
