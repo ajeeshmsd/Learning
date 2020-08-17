@@ -1,123 +1,142 @@
-const calculator = document.getElementById('calculator')
-const operator_display = document.getElementById('current_operator')
-const output_display = document.getElementById('current_result')
-const input_display = document.getElementById('current_input')
-let current_output = 0
-let current_input_integral = '0'
-let current_input_fractional = ''
-let input_has_fraction = false
-let current_operator = ' '
-let is_input_negative = false
-let current_operator_symbol = ' '
+class Calculator {
 
-function update_output() {
-    operator_display.textContent = current_operator_symbol
-    output_display.textContent = current_output.toString()
-    let input_display_text
-    if(input_has_fraction) {
-        input_display_text = parseInt(current_input_integral).toString() + '.' + current_input_fractional
-    } else {
-        input_display_text = parseInt(current_input_integral).toString()
-    }
-    if(is_input_negative) {
-        input_display_text = '-' + input_display_text
-    }
-    input_display.textContent = input_display_text
-}
+    // Display Objects
+    #operator_display;
+    #output_display;
+    #input_display
 
-function calculate() {
-    console.log(current_output)
-    console.log(current_operator)
-    const operand1 = current_output
-    const operator = current_operator
-    let operand2 = input_has_fraction ?
-        parseFloat(current_input_integral + '.' + current_input_fractional) : parseInt(current_input_integral)
-    operand2 = is_input_negative ? (- operand2) : operand2
-    switch (operator) {
-        case "plus":
-            current_output = operand1 + operand2
-            break
-        case "minus":
-            current_output = operand1 - operand2
-            break
-        case "multiply":
-            current_output = operand1 * operand2
-            break
-        case "divide":
-            current_output = operand1 / operand2
-            break
-        default:
-            current_output = operand2
-    }
-}
+    // State values
+    #current_output;
+    #current_input
+    #current_operator;
 
-update_output()
+    constructor() {
+        this.#operator_display = document.getElementById('current_operator');
+        this.#output_display = document.getElementById('current_result');
+        this.#input_display = document.getElementById('current_input');
 
-if(calculator)
-{
-    calculator.addEventListener('click', e => {
-        const key = e.target
-        if(!key.matches('button')) {
-            return;
-        }
-
-        if(key.matches('.key_operator')) {
-            calculate()
-            current_operator = key.dataset.action
-            current_operator_symbol = key.textContent
-            current_input_integral = '0'
-            input_has_fraction = false
-            is_input_negative = false
-            current_input_fractional = ''
-            console.log("Operator key pressed " + key.dataset.action)
-        } else if(key.matches('.key_action')) {
-            if(key.dataset.action === 'decimal') {
-                input_has_fraction = true
-            } else if(key.dataset.action === 'clear') {
-                current_input_integral = '0'
-                input_has_fraction = false
-                is_input_negative = false
-                current_input_fractional = ""
-                current_operator = ' '
-                current_operator_symbol = ''
-                current_output = 0
-            } else if(key.dataset.action === 'u_minus') {
-                is_input_negative = !is_input_negative
-                console.log("u_minus pressed" + is_input_negative.toString())
-            } else if (key.dataset.action === 'del') {
-                if(input_has_fraction) {
-                    if(current_input_fractional !== '') {
-                        current_input_fractional = current_input_fractional.slice(0, -1)
-                    } else {
-                        input_has_fraction = false
-                    }
-                } else {
-                    if(parseInt(current_input_integral) !== 0) {
-                        current_input_integral = current_input_integral.slice(0, -1)
-                    }
-                }
-            } else if(key.dataset.action === 'calculate') {
-                console.log("calculate")
-                calculate()
-                current_operator = ' '
-                current_operator_symbol = ' '
-                current_input_integral = '0'
-                input_has_fraction = false
-                is_input_negative = false
-                current_input_fractional = ''
+        document.getElementById('calculator').addEventListener('click', event => {
+            const key = event.target;
+            if(!key.matches('button')) {
+                return;
             }
-            console.log("Action key pressed " + key.dataset.action)
-        } else if(key.matches('.key_digit')) {
-            if(input_has_fraction) {
-                current_input_fractional = current_input_fractional + key.textContent
+            if(key.matches('.key_operator')) {
+                this.#operator_input(key.dataset.action);
+            } else if(key.matches('.key_action')) {
+                this.#action_input(key.dataset.action);
+            } else if(key.matches('.key_digit')) {
+                this.#digit_input(key.textContent);
+            }
+            this.#update_display();
+        });
+
+        window.addEventListener('keydown', event => {
+            const key = event.key
+            if (key >= '0' && key <= '9') {
+                this.#digit_input(key)
+            } else if(key === '+' || key === '-' || key === '*' || key === '/') {
+                this.#operator_input(key);
+            } else if(key === 'Backspace' || key === '=' || key === '.') {
+                this.#action_input(key)
             } else {
-                current_input_integral = current_input_integral + key.textContent
+                console.log(key)
             }
-            console.log("Number key pressed " + key.textContent)
+            this.#update_display();
+        });
+
+        this.#all_clear()
+    }
+
+    #digit_input(digit) {
+        if(this.#current_input !== '0') {
+            this.#current_input += digit;
+        } else {
+            this.#current_input = digit;
+        }
+        console.log("Digit: " + digit);
+    }
+
+    #operator_input(operator) {
+        this.#current_output =
+            Calculator.#calculate(this.#current_operator, this.#current_output, parseFloat(this.#current_input));
+        this.#current_operator = operator;
+        this.#current_input = '0';
+        console.log("Operator: " + operator);
+    }
+
+    #action_input(action) {
+        switch (action) {
+            case 'Backspace' : {
+                this.#current_input = this.#current_input.slice(0, -1);
+                if(!this.#current_input) {
+                    this.#current_input = '0';
+                }
+                break;
+            }
+            case 'clear' : {
+                this.#all_clear();
+                break;
+            }
+            case '.' : {
+                if(!this.#current_input.includes('.')) {
+                    this.#current_input += '.';
+                }
+                break;
+            }
+            case '=' : {
+                this.#current_output =
+                    Calculator.#calculate(this.#current_operator, this.#current_output, parseFloat(this.#current_input));
+                this.#current_operator = ' ';
+                this.#current_input = '0';
+                break;
+            }
+            case 'u_minus' : {
+                if(!this.#current_input.includes('-')) {
+                    this.#current_input = '-' + this.#current_input;
+                } else {
+                    this.#current_input = this.#current_input.slice(1);
+                }
+            }
+        }
+        console.log("Action: " + action);
+    }
+
+    #all_clear() {
+        this.#current_output = 0;
+        this.#current_input  = '0'
+        this.#current_operator = ' ';
+
+        this.#update_display();
+    }
+
+    #update_display() {
+        switch (this.#current_operator) {
+            case '*' : {
+                this.#operator_display.textContent = '*';
+                break;
+            }
+            case '/' : {
+                this.#operator_display.textContent = '/';
+                break;
+            }
+            default : this.#operator_display.textContent = this.#current_operator;
         }
 
-        update_output()
-    })
-} else {
-    throw "Couldn't find calculator"
+        this.#output_display.textContent = this.#current_output.toString();
+
+        this.#input_display.textContent = this.#current_input;
+    }
+
+    static #calculate(opcode, operand1, operand2) {
+        switch (opcode) {
+            case '+' : return operand1 + operand2;
+            case '-' : return operand1 - operand2;
+            case '*' : return operand1 * operand2;
+            case '/' : return operand1 / operand2;
+            case ' ' : return operand2;
+            default : throw "Unknown opcode";
+        }
+    }
 }
+
+new Calculator();
