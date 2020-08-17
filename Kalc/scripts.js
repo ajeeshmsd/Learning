@@ -21,7 +21,7 @@ class Calculator {
 
     digit_input(digit) {
         this.#input_not_given = false;
-        if(parseFloat(this.#current_input) === 0) {
+        if(parseFloat(this.#current_input) === 0 && !this.#current_input.includes('.')) {
             this.#current_input = this.#current_input.slice(0, -1);
         }
         this.#current_input += digit;
@@ -31,7 +31,7 @@ class Calculator {
     operator_input(operator) {
         if(this.#input_not_given) {
             if(operator === '-') {
-                this.#action_input('u_minus');
+                this.action_input('u_minus');
             }
             return;
         }
@@ -93,7 +93,7 @@ class Calculator {
         this.#current_operator = ' ';
         this.#input_not_given = true
 
-        this.#update_display();
+        this.update_display();
     }
 
     update_display() {
