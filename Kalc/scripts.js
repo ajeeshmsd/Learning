@@ -99,11 +99,11 @@ class Calculator {
     update_display() {
         switch (this.#current_operator) {
             case '*' : {
-                this.#operator_display.textContent = '*';
+                this.#operator_display.innerHTML = '&times';
                 break;
             }
             case '/' : {
-                this.#operator_display.textContent = '/';
+                this.#operator_display.innerHTML = '&divide';
                 break;
             }
             default : this.#operator_display.textContent = this.#current_operator;
