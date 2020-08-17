@@ -37,7 +37,7 @@ class Calculator {
                 this.#digit_input(key)
             } else if(key === '+' || key === '-' || key === '*' || key === '/') {
                 this.#operator_input(key);
-            } else if(key === 'Backspace' || key === '=' || key === '.') {
+            } else if(key === 'Backspace' || key === '=' || key === 'Enter' || key === '.') {
                 this.#action_input(key)
             } else {
                 console.log(key)
@@ -59,6 +59,9 @@ class Calculator {
 
     #operator_input(operator) {
         if(this.#input_not_given) {
+            if(operator === '-') {
+                this.#action_input('u_minus');
+            }
             return;
         }
         this.#current_output =
@@ -90,6 +93,7 @@ class Calculator {
                 }
                 break;
             }
+            case 'Enter':
             case '=' : {
                 if(this.#input_not_given || this.#current_operator === ' ') {
                     return;
