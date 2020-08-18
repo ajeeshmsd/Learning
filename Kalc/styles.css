@@ -12,22 +12,21 @@ body {
 
 #full_display {
     background: #E6ECF3;
-    color: aliceblue;
     font-size: 70px;
     display: flow-root;
     margin: 15px 15px 15px 15px;
     border-radius: 5px;
-
+    color: black;
+    font-family: Monaco, serif;
+    text-overflow: ellipsis;
 }
 
 .input_display_inactive {
-    text-overflow: fade;
     color: #7ea8be;
 }
 
 .input_display_active {
-    text-overflow: clip;
-    color: #227c9d;
+    color: black;
 }
 
 #right_display{
@@ -39,8 +38,6 @@ body {
 }
 
 #current_result {
-    color: #227c9d;
-    text-overflow: clip;
 }
 
 #current_operator {
@@ -50,7 +47,6 @@ body {
     margin-top: 70px;
     padding-left: 10px;
     margin-left: 10px;
-    color: #227c9d;
 }
 
 #key_grid {
@@ -88,7 +84,8 @@ button {
     border: none;
     font-size: 40px;
     outline: none;
-    color: #227c9d;
+    font-family: Roboto Slab, serif;
+    color: black;
 }
 
 button:active {

@@ -38,7 +38,7 @@ class Calculator {
         });
 
         window.addEventListener('keydown', event => {
-            const key = event.key
+            let key = event.key
             if (key >= '0' && key <= '9') {
                 this.#digit_input(key)
             } else if(key === '+' || key === '-' || key === '*' || key === '/') {
@@ -47,7 +47,9 @@ class Calculator {
                 this.#action_input(key)
             } else {
                 console.log(key)
+                return;
             }
+            key = key === 'Enter' ? '=' : key;
             let button = document.getElementById("key_" + key);
             button.classList.add("active");
             delay(50).then(() =>
