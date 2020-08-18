@@ -84,10 +84,6 @@ button {
     color: #227c9d;
 }
 
-.button_hover {
-
-}
-
-.button_pressed {
-
+.active {
+    background: #8BC6EC;
 }

@@ -16,10 +16,49 @@ class Calculator {
         this.#output_display = document.getElementById('current_result');
         this.#input_display = document.getElementById('current_input');
 
+        document.getElementById('calculator').addEventListener('click', event => {
+            const key = event.target;
+            if(!key.matches('button')) {
+                return;
+            }
+            key.classList.add("active");
+            delay(50).then(() =>
+                    key.classList.remove("active"));
+
+            if(key.matches('.key_operator')) {
+                this.#operator_input(key.dataset.action);
+            } else if(key.matches('.key_action')) {
+                this.#action_input(key.dataset.action);
+            } else if(key.matches('.key_digit')) {
+                this.#digit_input(key.textContent);
+            } else {
+                console.log(key);
+            }
+            this.update_display();
+        });
+
+        window.addEventListener('keydown', event => {
+            const key = event.key
+            if (key >= '0' && key <= '9') {
+                this.#digit_input(key)
+            } else if(key === '+' || key === '-' || key === '*' || key === '/') {
+                this.#operator_input(key);
+            } else if(key === 'Backspace' || key === '=' || key === 'Enter' || key === '.') {
+                this.#action_input(key)
+            } else {
+                console.log(key)
+            }
+            let button = document.getElementById("key_" + key);
+            button.classList.add("active");
+            delay(50).then(() =>
+                button.classList.remove("active"));
+            this.update_display();
+        });
+
         this.#all_clear();
     }
 
-    digit_input(digit) {
+    #digit_input(digit) {
         this.#input_not_given = false;
         if(parseFloat(this.#current_input) === 0 && !this.#current_input.includes('.')) {
             this.#current_input = this.#current_input.slice(0, -1);
@@ -28,10 +67,10 @@ class Calculator {
         console.log("Digit: " + digit);
     }
 
-    operator_input(operator) {
+    #operator_input(operator) {
         if(this.#input_not_given) {
             if(operator === '-') {
-                this.action_input('u_minus');
+                this.#action_input('u_minus');
             }
             return;
         }
@@ -43,7 +82,7 @@ class Calculator {
         console.log("Operator: " + operator);
     }
 
-    action_input(action) {
+    #action_input(action) {
         switch (action) {
             case 'Backspace' : {
                 this.#current_input = this.#current_input.slice(0, -1);
@@ -135,35 +174,9 @@ class Calculator {
 }
 
 window.onload = () => {
-    let calc = new Calculator();
-    document.getElementById('calculator').addEventListener('click', event => {
-        const key = event.target;
-        if(!key.matches('button')) {
-            return;
-        }
-        if(key.matches('.key_operator')) {
-            calc.operator_input(key.dataset.action);
-        } else if(key.matches('.key_action')) {
-            calc.action_input(key.dataset.action);
-        } else if(key.matches('.key_digit')) {
-            calc.digit_input(key.textContent);
-        } else {
-            console.log(key);
-        }
-        calc.update_display();
-    });
-
-    window.addEventListener('keydown', event => {
-        const key = event.key
-        if (key >= '0' && key <= '9') {
-            calc.digit_input(key)
-        } else if(key === '+' || key === '-' || key === '*' || key === '/') {
-            calc.operator_input(key);
-        } else if(key === 'Backspace' || key === '=' || key === 'Enter' || key === '.') {
-            calc.action_input(key)
-        } else {
-            console.log(key)
-        }
-        calc.update_display();
-    });
+    new Calculator();
 };
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
