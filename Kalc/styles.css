@@ -1,26 +1,33 @@
 body {
-    /*background-image: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);*/
+    background: ivory;;
 }
 
 #calculator {
-    margin: 2em auto;
-    width: 600px;
-    border-radius: 12px;
+    margin: 10em auto;
+    width: 920px;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 }
 
 #full_display {
-    background: #1A1A1D;
+    background: rgb(0,166,255);
+    background: radial-gradient(circle, rgba(0,166,255,0.43881302521008403) 0%, rgba(9,25,121,0) 16%, rgba(0,166,255,0.4640231092436975) 100%);
+
     color: aliceblue;
-    font-size: 50px;
+    font-size: 70px;
     display: flow-root;
+    margin-bottom: 2px;
+    /*margin-left: 1px;*/
+    border-radius: 20px;
+
 }
 
 .input_display_inactive {
-    color: red;
+    color: #7ea8be;
 }
 
 .input_display_active {
-    color: blue;
+    color: #227c9d;
 }
 
 #right_display{
@@ -30,33 +37,57 @@ body {
     display: inline;
 }
 
+#current_result {
+    color: #227c9d;
+}
+
 #current_operator {
     width: 50px;
     float: left;
-    font-size: 100px;
+    font-size: 50px;
+    padding-top: 35px;
+    padding-left: 10px;
+    color: #227c9d;
 }
 
 #key_grid {
     width: 100%;
     height: 100%;
-    background: #6F2232;
+    background: transparent;
 }
 
 table, th, td {
-    border: 1px solid black;
+    /*border: none;*/
+    outline: none;
     border-collapse: collapse;
 }
 
-button {
-    height: 100%;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    width: 100%;
-    background: transparent;
-    border: solid wheat;
-    color: aliceblue;
+td {
+    border: 5px solid transparent;
+    outline: none;
+    width: 25%;
 }
 
-.key {
+button {
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    background: rgb(0,166,255);
+    background: radial-gradient(circle, rgba(0,166,255,0.43881302521008403) 0%, rgba(9,25,121,0) 16%, rgba(0,166,255,0.4640231092436975) 100%);
+
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 40px;
+    outline: none;
+    color: #227c9d;
+}
+
+.button_hover {
+
+}
+
+.button_pressed {
 
 }
