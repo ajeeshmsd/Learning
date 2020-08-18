@@ -1,81 +1,88 @@
 body {
-    background-color: #8BC6EC;
-    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+    background-color: #E5E5E5;;
 }
 
 #calculator {
+    background: white;
+    border-radius: 5px;
+    border: solid 1px black;
     margin: 10em auto;
-    width: 920px;
-
+    width: 945px;
 }
 
 #full_display {
-    background: rgb(0,166,255);
-    background: radial-gradient(circle, rgba(0,166,255,0.43881302521008403) 0%, rgba(9,25,121,0) 16%, rgba(0,166,255,0.4640231092436975) 100%);
-
+    background: #E6ECF3;
     color: aliceblue;
     font-size: 70px;
     display: flow-root;
-    margin-bottom: 2px;
-    /*margin-left: 1px;*/
-    border-radius: 20px;
+    margin: 15px 15px 15px 15px;
+    border-radius: 5px;
 
 }
 
 .input_display_inactive {
+    text-overflow: fade;
     color: #7ea8be;
 }
 
 .input_display_active {
+    text-overflow: clip;
     color: #227c9d;
 }
 
 #right_display{
     text-align: right;
     margin-left: 70px;
+    margin-right: 20px;
     float: right;
     display: inline;
 }
 
 #current_result {
     color: #227c9d;
+    text-overflow: clip;
 }
 
 #current_operator {
     width: 50px;
     float: left;
     font-size: 50px;
-    padding-top: 35px;
+    margin-top: 70px;
     padding-left: 10px;
+    margin-left: 10px;
     color: #227c9d;
 }
 
 #key_grid {
-    width: 100%;
+    width: 930px;
     height: 100%;
     background: transparent;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border: solid 1px transparent;
 }
 
-table, th, td {
-    /*border: none;*/
+table {
     outline: none;
-    border-collapse: collapse;
+    display: block;
+    table-layout: fixed;
 }
 
 td {
-    border: 5px solid transparent;
+    border:  solid transparent 5px;
     outline: none;
-    width: 25%;
+    width: 220px;
+    height: 100%;
 }
 
 button {
     padding-top: 1em;
     padding-bottom: 1em;
 
-    background: rgb(0,166,255);
-    background: radial-gradient(circle, rgba(0,166,255,0.43881302521008403) 0%, rgba(9,25,121,0) 16%, rgba(0,166,255,0.4640231092436975) 100%);
+    background: #BACFE8;
 
-    border-radius: 20px;
+    border-radius: 5px;
     width: 100%;
     height: 100%;
     border: none;
@@ -84,6 +91,10 @@ button {
     color: #227c9d;
 }
 
+button:active {
+    background: #8FB7E7;
+}
+
 .active {
-    background: #8BC6EC;
+    background: #8FB7E7;
 }
