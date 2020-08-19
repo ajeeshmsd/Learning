@@ -17,44 +17,56 @@ class Calculator {
         this.#input_display = document.getElementById('current_input');
 
         document.getElementById('calculator').addEventListener('click', event => {
-            const key = event.target;
-            if(!key.matches('button')) {
-                return;
-            }
-            key.classList.add("active");
-            delay(50).then(() =>
+            try {
+                const key = event.target;
+                if (!key.matches('button')) {
+                    return;
+                }
+                key.classList.add("active");
+                delay(50).then(() =>
                     key.classList.remove("active"));
 
-            if(key.matches('.key_operator')) {
-                this.#operator_input(key.dataset.action);
-            } else if(key.matches('.key_action')) {
-                this.#action_input(key.dataset.action);
-            } else if(key.matches('.key_digit')) {
-                this.#digit_input(key.textContent);
-            } else {
-                console.log(key);
+                if (key.matches('.key_operator')) {
+                    this.#operator_input(key.dataset.action);
+                } else if (key.matches('.key_action')) {
+                    this.#action_input(key.dataset.action);
+                } else if (key.matches('.key_digit')) {
+                    this.#digit_input(key.textContent);
+                } else {
+                    console.log(key);
+                }
+                this.update_display();
+            } catch (err) {
+                this.#all_clear();
+                this.update_display();
+                this.#output_display.textContent = err;
             }
-            this.update_display();
         });
 
         window.addEventListener('keydown', event => {
-            let key = event.key
-            if (key >= '0' && key <= '9') {
-                this.#digit_input(key)
-            } else if(key === '+' || key === '-' || key === '*' || key === '/') {
-                this.#operator_input(key);
-            } else if(key === 'Backspace' || key === '=' || key === 'Enter' || key === '.') {
-                this.#action_input(key)
-            } else {
-                console.log(key)
-                return;
+            try {
+                let key = event.key
+                if (key >= '0' && key <= '9') {
+                    this.#digit_input(key)
+                } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+                    this.#operator_input(key);
+                } else if (key === 'Backspace' || key === '=' || key === 'Enter' || key === '.') {
+                    this.#action_input(key)
+                } else {
+                    console.log(key)
+                    return;
+                }
+                key = key === 'Enter' ? '=' : key;
+                let button = document.getElementById("key_" + key);
+                button.classList.add("active");
+                delay(50).then(() =>
+                    button.classList.remove("active"));
+                this.update_display();
+            } catch (err) {
+                this.#all_clear();
+                this.update_display();
+                this.#output_display.textContent = err;
             }
-            key = key === 'Enter' ? '=' : key;
-            let button = document.getElementById("key_" + key);
-            button.classList.add("active");
-            delay(50).then(() =>
-                button.classList.remove("active"));
-            this.update_display();
         });
 
         this.#all_clear();
@@ -168,7 +180,10 @@ class Calculator {
             case '+' : return operand1 + operand2;
             case '-' : return operand1 - operand2;
             case '*' : return operand1 * operand2;
-            case '/' : return operand1 / operand2;
+            case '/' : {
+                if(operand2 === 0) throw "Division by error";
+                return operand1 / operand2;
+            }
             case ' ' : return operand2;
             default : throw "Unknown opcode";
         }
