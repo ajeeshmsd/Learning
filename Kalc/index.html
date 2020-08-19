@@ -5,86 +5,85 @@
             Kalc
     </title>
     <link rel="stylesheet" href="styles.css">
-
+    <script src="scripts.js"></script>
 </head>
 <body>
-    <script src="scripts.js"></script>
 
-    <div id="calculator">
-        <div class="display" id="full_display">
-            <div class="display" id="current_operator">+</div>
-            <div class="display" id="right_display">
-                <div class="display" id="current_result">0</div>
-                <div class="input_display_inactive" id="current_input">0</div>
+    <div class="calculator">
+        <div class="display full_display">
+            <div class="display current_operator">+</div>
+            <div class="display right_display">
+                <div class="display current_result">0</div>
+                <div class="input_display_inactive current_input">0</div>
             </div>
         </div>
         <div>
-            <table id="key_grid">
+            <table class="key_grid">
                 <tr>
                     <td>
-                        <button class="key key_action" id="key_clear" data-action="clear">AC</button>
+                        <button class="key key_action key_clear" data-action="clear">AC</button>
                     </td>
                     <td>
-                        <button class="key key_action" id="key_u_minus" data-action="u_minus">+/-</button>
+                        <button class="key key_action key_u_minus" data-action="u_minus">+/-</button>
                     </td>
                     <td>
-                        <button class="key key_action" id="key_Backspace" data-action="Backspace">del</button>
+                        <button class="key key_action key_Backspace" data-action="Backspace">del</button>
                     </td>
                     <td>
-                        <button class="key key_operator" id="key_+" data-action="+">+</button>
+                        <button class="key key_operator key_+" data-action="+">+</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button class="key key_digit" id="key_7">7</button>
+                        <button class="key key_digit key_7">7</button>
                     </td>
                     <td>
-                        <button class="key key_digit" id="key_8">8</button>
+                        <button class="key key_digit key_8">8</button>
                     </td>
                     <td>
-                        <button class="key key_digit" id="key_9">9</button>
+                        <button class="key key_digit key_9">9</button>
                     </td>
                     <td>
-                        <button class="key key_operator" data-action="-" id="key_-">-</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button class="key key_digit" id="key_4">4</button>
-                    </td>
-                    <td>
-                        <button class="key key_digit" id="key_5">5</button>
-                    </td>
-                    <td>
-                        <button class="key key_digit" id="key_6">6</button>
-                    </td>
-                    <td>
-                        <button class="key key_operator" data-action="*" id="key_*">&times;</button>
+                        <button class="key key_operator key_-" data-action="-">-</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button class="key key_digit" id="key_1">1</button>
+                        <button class="key key_digit key_4">4</button>
                     </td>
                     <td>
-                        <button class="key key_digit" id="key_2">2</button>
+                        <button class="key key_digit key_5">5</button>
                     </td>
                     <td>
-                        <button class="key key_digit" id="key_3">3</button>
+                        <button class="key key_digit key_6">6</button>
                     </td>
                     <td>
-                        <button class="key key_operator" data-action="/" id="key_/">&divide;</button>
+                        <button class="key key_operator key_*" data-action="*">&times;</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="key key_digit key_1">1</button>
+                    </td>
+                    <td>
+                        <button class="key key_digit key_2">2</button>
+                    </td>
+                    <td>
+                        <button class="key key_digit key_3">3</button>
+                    </td>
+                    <td>
+                        <button class="key key_operator key_/" data-action="/">&divide;</button>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <button class="key key_digit" id="key_0">0</button>
+                        <button class="key key_digit key_0">0</button>
                     </td>
                     <td>
-                        <button class="key key_action" data-action="." id="key_.">.</button>
+                        <button class="key key_action key_." data-action=".">.</button>
                     </td>
                     <td>
-                        <button class="key key_action" data-action="=" id="key_=" id="key_Enter">=</button>
+                        <button class="key key_action key_Enter key_" data-action="=">=</button>
                     </td>
                 </tr>
             </table>

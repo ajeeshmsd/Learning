@@ -11,12 +11,16 @@ class Calculator {
     #current_operator;
     #input_not_given
 
-    constructor() {
-        this.#operator_display = document.getElementById('current_operator');
-        this.#output_display = document.getElementById('current_result');
-        this.#input_display = document.getElementById('current_input');
+    #ui_element
 
-        document.getElementById('calculator').addEventListener('click', event => {
+    constructor(ui_element_) {
+        this.#ui_element = ui_element_
+
+        this.#operator_display = this.#ui_element.getElementsByClassName('current_operator')[0];
+        this.#output_display = this.#ui_element.getElementsByClassName('current_result')[0];
+        this.#input_display = this.#ui_element.getElementsByClassName('current_input')[0];
+
+        this.#ui_element.addEventListener('click', event => {
             try {
                 const key = event.target;
                 if (!key.matches('button')) {
@@ -43,7 +47,7 @@ class Calculator {
             }
         });
 
-        window.addEventListener('keydown', event => {
+        this.#ui_element.addEventListener('keydown', event => {
             try {
                 let key = event.key
                 if (key >= '0' && key <= '9') {
@@ -57,7 +61,7 @@ class Calculator {
                     return;
                 }
                 key = key === 'Enter' ? '=' : key;
-                let button = document.getElementById("key_" + key);
+                let button = this.#ui_element.getElementsByClassName("key_" + key)[0];
                 button.classList.add("active");
                 delay(50).then(() =>
                     button.classList.remove("active"));
@@ -181,7 +185,7 @@ class Calculator {
             case '-' : return operand1 - operand2;
             case '*' : return operand1 * operand2;
             case '/' : {
-                if(operand2 === 0) throw "Division by error";
+                if(operand2 === 0) throw "Division by zero error";
                 return operand1 / operand2;
             }
             case ' ' : return operand2;
@@ -191,7 +195,18 @@ class Calculator {
 }
 
 window.onload = () => {
-    new Calculator();
+    const body = document.getElementsByTagName("body")[0];
+    let body_html = body.innerHTML;
+    body.innerHTML = "";
+
+    for(let i = 0; i < 5; ++i) {
+        body.innerHTML += body_html;
+    }
+
+    const calculators = document.getElementsByClassName('calculator');
+    for(let i = 0; i < 5; ++i) {
+        new Calculator(calculators[i]);
+    }
 };
 
 function delay(ms) {

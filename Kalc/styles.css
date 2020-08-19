@@ -2,7 +2,7 @@ body {
     background-color: #E5E5E5;;
 }
 
-#calculator {
+.calculator {
     background: white;
     border-radius: 5px;
     border: solid 1px black;
@@ -10,11 +10,11 @@ body {
     width: 600px;
 }
 
-#current_result {
+.current_result {
     font-size: 35px;
 }
 
-#full_display {
+.full_display {
     background: #E6ECF3;
     font-size: 50px;
     display: flow-root;
@@ -32,7 +32,7 @@ body {
     color: black;
 }
 
-#right_display{
+.right_display{
     text-align: right;
     margin-left: 30px;
     margin-right: 20px;
@@ -44,10 +44,10 @@ body {
     white-space: nowrap;
 }
 
-#current_result {
+.current_result {
 }
 
-#current_operator {
+.current_operator {
     width: 28px;
     float: left;
     font-size: 40px;
@@ -56,7 +56,7 @@ body {
     margin-left: 10px;
 }
 
-#key_grid {
+.key_grid {
     width: 585px;
     height: 100%;
     background: transparent;
