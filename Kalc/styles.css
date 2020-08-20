@@ -6,8 +6,9 @@ body {
     background: white;
     border-radius: 5px;
     border: solid 1px black;
-    margin: 10em auto;
+    margin: 10em auto 1em;
     width: 600px;
+    outline: none;
 }
 
 .current_result {
@@ -79,7 +80,7 @@ td {
     height: 100%;
 }
 
-button {
+.key {
     padding-top: 1em;
     padding-bottom: 1em;
 
@@ -95,10 +96,34 @@ button {
     color: black;
 }
 
-button:active {
+.active {
     background: #8FB7E7;
 }
 
-.active {
-    background: #8FB7E7;
+#new_element {
+    margin: auto;
+    alignment: center;
+    display: flex;
+}
+
+#new_button {
+    margin: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    width: 600px;
+    font-size: 50px;
+    font-family: Monaco monospace;
+    background: white;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+}
+
+#new_button:hover {
+    background: #7ea8be;
+}
+
+#new_button:active {
+    background: #223143;
 }

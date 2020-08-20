@@ -1,3 +1,5 @@
+let current_calculator;
+
 class Calculator {
 
     // Display Objects
@@ -22,6 +24,7 @@ class Calculator {
 
         this.#ui_element.addEventListener('click', event => {
             try {
+                ui_element_.focus();
                 const key = event.target;
                 if (!key.matches('button')) {
                     return;
@@ -49,7 +52,7 @@ class Calculator {
 
         this.#ui_element.addEventListener('keydown', event => {
             try {
-                let key = event.key
+                let key = event.key;
                 if (key >= '0' && key <= '9') {
                     this.#digit_input(key)
                 } else if (key === '+' || key === '-' || key === '*' || key === '/') {
@@ -195,18 +198,19 @@ class Calculator {
 }
 
 window.onload = () => {
-    const body = document.getElementsByTagName("body")[0];
-    let body_html = body.innerHTML;
-    body.innerHTML = "";
+    const calculators_div = document.getElementById('calculators');
+    let all_calculators = document.getElementsByClassName('calculator');
+    const calculator_body = all_calculators[0];
+    calculator_body.focus();
+    new Calculator(calculator_body);
+    document.getElementById("new_button").addEventListener('click', event => {
+        const calculator_body_clone = calculator_body.cloneNode(true);
+        all_calculators += calculator_body_clone;
+        calculators_div.appendChild(calculator_body_clone);
+        calculator_body_clone.focus();
+        new Calculator(calculator_body_clone);
+    });
 
-    for(let i = 0; i < 5; ++i) {
-        body.innerHTML += body_html;
-    }
-
-    const calculators = document.getElementsByClassName('calculator');
-    for(let i = 0; i < 5; ++i) {
-        new Calculator(calculators[i]);
-    }
 };
 
 function delay(ms) {
