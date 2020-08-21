@@ -1,5 +1,3 @@
-let current_calculator;
-
 class Calculator {
 
     // Display Objects
@@ -24,7 +22,7 @@ class Calculator {
 
         this.#ui_element.addEventListener('click', event => {
             try {
-                ui_element_.focus();
+                ui_element_.focus(); // Change the focus from key into the whole calculator.
                 const key = event.target;
                 if (!key.matches('button')) {
                     return;
@@ -48,6 +46,7 @@ class Calculator {
                 this.update_display();
                 this.#output_display.textContent = err;
             }
+            event.stopPropagation();
         });
 
         this.#ui_element.addEventListener('keydown', event => {
@@ -74,6 +73,7 @@ class Calculator {
                 this.update_display();
                 this.#output_display.textContent = err;
             }
+            event.stopPropagation();
         });
 
         this.#all_clear();
@@ -209,9 +209,32 @@ window.onload = () => {
         calculators_div.appendChild(calculator_body_clone);
         calculator_body_clone.focus();
         new Calculator(calculator_body_clone);
+        event.stopPropagation();
     });
 
-};
+    document.getElementById("form").addEventListener('submit', event => {
+        event.preventDefault();
+
+        let count = document.getElementById("form").count.value;
+        for(let i = 0; i < count; ++i) {
+            console.log(i);
+            let calculator_body_clone = calculator_body.cloneNode(true);
+            all_calculators += calculator_body_clone;
+            calculators_div.appendChild(calculator_body_clone);
+            new Calculator(calculator_body_clone);
+        }
+        event.stopPropagation();
+        return false;
+    });
+
+    window.addEventListener('click', event => {
+        console.log("Default click listener");
+    });
+
+    window.addEventListener('keydown', event => {
+        console.log('default keyboard event listener');
+    });
+}
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

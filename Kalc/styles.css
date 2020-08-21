@@ -105,7 +105,12 @@ td {
     alignment: center;
     display: flex;
 }
-
+#form_example_div {
+    margin: 2em auto 2em;
+    alignment: center;
+    display: block;
+    text-align: center;
+}
 #new_button {
     margin: auto;
     padding-top: 5px;
