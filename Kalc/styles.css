@@ -22,7 +22,7 @@ body {
     margin: 15px 15px 15px 15px;
     border-radius: 5px;
     color: black;
-    font-family: Monaco, serif;
+    font-family: Anonymous Pro, serif;
 }
 
 .input_display_inactive {
@@ -92,7 +92,7 @@ td {
     border: none;
     font-size: 30px;
     outline: none;
-    font-family: Roboto Slab, serif;
+    font-family: Roboto;
     color: black;
 }
 
