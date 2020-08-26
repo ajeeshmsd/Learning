@@ -2,6 +2,7 @@ import  React, { useEffect, useState } from 'react';
 import {FlexGrid, FlexGridItem} from 'baseui/flex-grid';
 
 import DigitCard from "./digit-card";
+import {Block} from "baseui/block";
 
 const calculateTimeLeft = () => {
     let year = new Date().getFullYear();
@@ -35,16 +36,41 @@ const Layout = () => {
     });
 
     return (
-        <FlexGrid
-            flexGridColumnCount='4'
-            flexGridColumnGap="scale800"
-            flexGridRowGap="scale800"
+        <div>
+            <Block
+                width={"750px"}
+                margin={"auto"}
+                marginTop={"200px"}
+                backgroundColor={"#E5E5E5"}
+
+                overrides={{
+                    Block: {
+                        style: {
+                            fontSize:"100px",
+                            textAlign:"center"
+                        },
+                    },
+                }}
             >
-            <FlexGridItem> <DigitCard head='Days' value={timeLeft.days} /> </FlexGridItem>
-            <FlexGridItem> <DigitCard head='Hours' value={timeLeft.hours} /> </FlexGridItem>
-            <FlexGridItem> <DigitCard head='Minutes' value={timeLeft.minutes} /> </FlexGridItem>
-            <FlexGridItem> <DigitCard head='Seconds' value={timeLeft.seconds} /> </FlexGridItem>
-        </FlexGrid>
+                Welcome to the <br /> New World
+            </Block>
+            <Block
+                width={"750px"}
+                margin={"auto"}
+                marginTop={"200px"}
+            >
+                <FlexGrid
+                    flexGridColumnCount='4'
+                    flexGridColumnGap="scale800"
+                    flexGridRowGap="scale800"
+                    >
+                    <FlexGridItem> <DigitCard head='Days' value={timeLeft.days} /> </FlexGridItem>
+                    <FlexGridItem> <DigitCard head='Hours' value={timeLeft.hours} /> </FlexGridItem>
+                    <FlexGridItem> <DigitCard head='Minutes' value={timeLeft.minutes} /> </FlexGridItem>
+                    <FlexGridItem> <DigitCard head='Seconds' value={timeLeft.seconds} /> </FlexGridItem>
+                </FlexGrid>
+            </Block>
+        </div>
     );
 }
 
