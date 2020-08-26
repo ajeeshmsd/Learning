@@ -5,9 +5,8 @@ const DigitCard = props => {
     const {head, value} = props;
     return (
         <Block
-            display="flex"
-            height={['20px', '40px', '80px', '160px']}
             backgroundColor="primary200"
+            padding='20px'
         >{head}<br />{value}</Block>
     );
 }
