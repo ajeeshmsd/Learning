@@ -11,16 +11,7 @@ const itemProps = {
   justifyContent: 'center',
 };
 
-const wideItemProps = {
-  ...itemProps,
-  overrides: {
-    Block: {
-      style: ({$theme}) => ({
-        width: '200%',
-      }),
-    },
-  },
-};
+
 
 const KeyGrid = props => {
   let {clickHandler} = props;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, KIND } from "baseui/button";
+import { Button } from "baseui/button";
 
 const CalculatorKey = props => {
     let {value, type, clickHandler} = props;
