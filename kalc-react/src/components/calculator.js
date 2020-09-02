@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Block} from "baseui/block";
+import {useStyletron} from "baseui";
 
 import Display from "./display";
 import KeyGrid from "./key-grid";
@@ -24,21 +24,23 @@ const Calculator = () => {
     let [inputValue, setInputValue] = useState('0');
     let [resultValue, setResultValue] = useState(0);
     let [isInputAvailable, setIsInputAvailable] = useState(false);
+    let [css] = useStyletron();
 
-    let clickHandler = (type, value) => {
-      switch (type) {
-          case 'digit':
-              return digitInputHandler(value);
-          case 'action':
-              return actionInputHandler(value);
-          case 'operator':
-              if(value === '-' && ! isInputAvailable) {
-                  return actionInputHandler("u_minus")
-              } else {
-                  return operatorInputHandler(value)
-              }
-          default:
-              throw Error("Unknown click");
+    let clickHandler = (event, type, value) => {
+        event.preventDefault();
+        switch (type) {
+            case 'digit':
+                return digitInputHandler(value);
+            case 'action':
+                return actionInputHandler(value);
+            case 'operator':
+               if(value === '-' && ! isInputAvailable) {
+                   return actionInputHandler("u_minus")
+               } else {
+                   return operatorInputHandler(value)
+               }
+            default:
+                throw Error("Unknown click");
       }
     };
 
@@ -105,40 +107,38 @@ const Calculator = () => {
     };
 
     let operatorInputHandler = operator => {
-        console.log(resultValue);
-        console.log(currentOperator)
-        console.log(inputValue)
         setResultValue(prevResultValue => calculate(currentOperator, prevResultValue, parseFloat(inputValue)));
         setCurrentOperator(operator);
         setInputValue("0");
         setIsInputAvailable(false);
     }
 
-    return <Block
-    background={"#E5E5E5"}
-    margin={"auto"}
+    let keyDownHandler = () => {
+        console.log("key pressed");
+    };
 
-    overrides={{
-        Block: {
-            style: {
+    return (
+        <div
+            className={css({
                 background: "white",
-                    borderRadius: "5px",
-                    border: "solid 1px black",
-                    margin: "10em auto 1em",
-                    width: "600px",
-                    outline: "none"
-            },
-        },
-    }}
-    >
-        <Display
-            operator={currentOperator}
-            inputValue={inputValue}
-            isInputAvailable={isInputAvailable}
-            resultValue={resultValue}
-        />
-        <KeyGrid clickHandler={clickHandler}/>
-    </Block>;
+                borderRadius: '5px',
+                border: 'solid 1px black',
+                margin: '10em auto 1em',
+                width: '600px',
+                outline: 'none',
+                tabIndex: 0,
+                onKeyDown: {keyDownHandler}
+            })}
+        >
+            <Display
+                operator={currentOperator}
+                inputValue={inputValue}
+                isInputAvailable={isInputAvailable}
+                resultValue={resultValue}
+            />
+            <KeyGrid clickHandler={clickHandler}/>
+        </div>
+    );
 };
 
 export default Calculator;
