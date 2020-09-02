@@ -13,11 +13,6 @@ const Layout = () => {
         setCount(currentCount => currentCount + 1);
     };
 
-    let calculators = [];
-    for (let i = 0; i < count; ++i) {
-        calculators = calculators.concat(<Calculator key={i} />);
-    }
-
     return (
         <div
             className={css({
@@ -31,7 +26,7 @@ const Layout = () => {
                 background: '#E5E5E5'
             })}
         >
-            {calculators}
+            {Array(count).fill(0).map((_j, i) => <Calculator key={i} />)}
             <AddCalculator handler={addCalculator} />
         </div>
         );
